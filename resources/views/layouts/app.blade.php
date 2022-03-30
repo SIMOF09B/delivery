@@ -9,7 +9,7 @@
     <!-- for icons  -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <!-- bootstrap  -->
-    
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- for swiper slider  -->
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
@@ -38,20 +38,20 @@
                         <button class="menu-toggle"><span></span><span></span></button>
                         <nav class="header-menu">
                             <ul class="menu food-nav-menu">
-                                <li><a data-bs-toggle="modal" data-bs-target="#search"><i class="fa fa-search"></i></a></li>                         
+                                <li><a data-bs-toggle="modal" data-bs-target="#search"><i class="fa fa-search"></i></a></li>
                                 <li><a href="{{ url('/') }}">Home</a></li>
                                 <li><a href="{{route('home')}}">Restaurants</a></li>
                                 @auth
                                 <li><a href="{{route('authc.order')}}">Orders</a></li>
                                 @endauth
-                                <li><a data-bs-toggle="modal" data-bs-target="#cartmodal">Cart  (<i class="fas fa-shopping-basket"></i><span class="text-danger">+{{isset($data)?$card->getDetails()->get('items')->count():0}})</span></a></li>
-                            
+                                <li><a data-bs-toggle="modal" data-bs-target="#cartmodal"><i class="fas fa-shopping-basket"></i><span class="text-danger">{{isset($data)?$card->getDetails()->get('items')->count():0}}</span></a></li>
+
                                 @auth
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
                                     </a>
-        
+
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('authc.show') }}">
                                             Profile
@@ -61,7 +61,7 @@
                                                          document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
-        
+
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
@@ -83,7 +83,7 @@
         </div>
         </div>
     </header>
-    
+
 
 
                                 <!-- Modal -->
@@ -91,17 +91,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <form action="">
+          <form action="{{route('filterRest')}}" method="POST">
+            @csrf
             <div class="input-group mb-3">
-              <input type="search" class="form-control" placeholder="type your address..." aria-label="search" aria-describedby="button-addon2">
+              <input type="search" class="form-control" name="adresse" placeholder="type your address..." aria-label="search" aria-describedby="button-addon2">
               <button class="btn btn-outline-secondary" type="submit" id="button-addon2">ok</button>
             </div>
           </form>
         </div>
       </div>
     </div>
-  </div> 
-  
+  </div>
+
   <!-- Modal -->
   <div class="modal fade" id="cartmodal" tabindex="-1" aria-labelledby="cartmodalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -114,8 +115,8 @@
             @if($card->getDetails()->get('items')->count() > 0 && isset($data))
             <table class="table table-striped table-dark text-light">
             @foreach($card->getDetails()->get('items') as $cart)
-            <tr> 
-                <td><span class="badge bg-secondary">{{$cart->get('quantity')}} x  </span> {{$cart->get('title')}} </td> 
+            <tr>
+                <td><span class="badge bg-secondary">{{$cart->get('quantity')}} x  </span> {{$cart->get('title')}} </td>
                 <td class=" text-center"><a class="btn btn-success">-</a></td>
             </tr>
             @endforeach
@@ -134,14 +135,14 @@
       </div>
     </div>
   </div>
-  
+
   @include('visitors.client.edit')
     <!-- header ends  -->
     <div id="viewport">
         <div id="js-scroll-content">
             @yield('content')
 
-            
+
     <footer class="page-footer bg-image" style="background-image: url(img/world_pattern.svg);">
         <div class="container">
           <div class="row mb-5">
@@ -184,7 +185,7 @@
         </div>
       </footer>
         </div>
-        
+
     </div>
 
 
@@ -225,4 +226,3 @@
 </body>
 
 </html>
-  

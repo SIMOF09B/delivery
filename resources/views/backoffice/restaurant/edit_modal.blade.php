@@ -14,12 +14,11 @@
               <input type="text" class="form-control" value="{{$item->name}}" name='name' id="name" >
             </div>
             
-          <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn text-white" style="background-color:#f35757">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
+     
       </div>
     </div>
   </div>

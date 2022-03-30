@@ -22,30 +22,49 @@
     </div>
   </div>
 @endif
-    <div class="mt-9">
-        <div class="card mb-4" style="max-width: 500px; margin: auto ">
-            <div class="card-header text-white bg-danger">
-              <i class="fa fa-clock-rotate-left text-white"></i>  <strong>{{$restaurant->created_at->diffForHumans()}} </strong>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title text-center"> <strong> {{$restaurant->name}} <strong> </h5>
-              <p class="card-text ml-5">  <i class="fa fa-location-dot text-danger"></i>  {{$restaurant->adresse}}</p>
-              <p class="card-text ml-5">  <i class="fa-solid fa-phone text-success"></i>   {{$restaurant->tele}}</p>
-             
-            </div>
-            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success ">Add Category ({{$restaurant->categorie->count()}}) +</a>
-          </div>
+<div class="profile card card-body px-3 pt-3 pb-0" style="max-width:1200px">
+  <div class="profile-head">
+      <div class="photo-content">
+          <div class="cover-photo rounded"></div>
+      </div>
+      <div class="profile-info">
+<div class="profile-photo">
+<img src="{{asset('products/vv.png')}}" alt="" width="1200" style="height: 300px">
+</div>
+<div class="profile-details">
+  <div class="row">
+<div class="profile-name px-3 pt-2">
+<h4 class="text-primary mb-0">{{$restaurant->name}}</h4>
+<p><i class="fa-solid fa-clock-rotate-left"></i> Last updated {{$restaurant->created_at->diffForHumans()}}</p>
+</div>
+<div class="profile-email px-2 pt-2">
+<h4 class="text-black mb-0"><i class="fa fa-map-pin text-danger"></i>  {{$restaurant->adresse}}</h4>
+<p class="text-black"> <i class="fa-solid fa-phone text-success"></i>   {{$restaurant->tele}}</p>
+</div></div>
+<div class="card-footer d-sm-flex justify-content-between  bg-white">
+  <div class="card-footer-link mb-4 mb-sm-0" >
+      <p class="card-text text-dark d-inline"> <strong></strong></p>
+  </div>
+
+  <a style="background-color:#f35757" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-primary btn-center">Add Category ({{$restaurant->categorie->count()}}) +</a>
+</div>
+</div>
+      </div>
+  </div>
+</div><br>
+
+        
           @foreach ($restaurant->categorie as $item)
         @include('backoffice.restaurant.edit_modal')
         <div class="shadow p-3 ml-0 mr-0 bg-body rounded  mb-2 row" style="position: relative;overflow: hidden"> 
           <div class="col-sm-6">
-            <h4 class="d-inline"> {{$item->name}}  </h4>
-            <a data-bs-toggle="modal" data-bs-target="#edit_Modal{{$item->id}}" class="ml-4 text-secondary d-inline" data-id="{{$item->id}}"><i class="fa-solid fa-pen"></i></a> 
-            | <a href="{{route('categorie.delete',['categorie'=> $item])}}" class="text-danger d-inline"><i class="fa-solid fa-trash text-danger"></i></a>
+            <h4 class="d-inline text-primary"> {{$item->name}}  </h4>
+            <a data-bs-toggle="modal" data-bs-target="#edit_Modal{{$item->id}}" class="ml-4 text-black d-inline" data-id="{{$item->id}}"><i class="fa-solid fa-pen"></i></a> 
+            | <a href="{{route('categorie.delete',['categorie'=> $item])}}" class="text-black d-inline"><i class="fa-solid fa-trash text-danger"></i></a>
           </div>
           <div class="col-sm-6 text-right">
-            <h4 class="d-inline bg-success" 
-            style="position: absolute;right: -34px;bottom: -32px;padding: 20px 27px;border-top-left-radius: 84px;"
+            <h4 class="d-inline" 
+            style="position: absolute;right: -34px;bottom: -32px;padding: 20px 27px;border-top-left-radius: 84px;background-color:#f35757"
             ><a href="{{route('produit.add',['id'=>$item])}}" class="text-light rounded-pill d-inline">Product  <i class="fa-solid fa-circle-plus"></i></a></h4>
           </div>
         </div>
@@ -55,21 +74,22 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="ms-card"> 
               <div class="ms-card-img">
-                <img src="{{asset('products/'.$product->image)}}" alt="card_img">
+                <img src="{{asset('products/'.$product->image)}}" style="height: 200px; width: 100%" alt="card_img">
               </div>
               <div class="ms-card-body ">
                 <div class="wrapper-new2">
                   <h6>{{$product->name}}</h6>
-                  <span class="white">{{$product->created_at->diffForHumans()}}</span>
+                  <span class="white"style="background-color:#f35757">{{$product->created_at->diffForHumans()}}</span>
                  
                 </div>
                 <div class="wrapper-new1">
-                  <span>Prix :<strong class="color-red">{{$product->prix}}.00 DH</strong> </span>
+                  <span> Prix :<strong class="color-red">{{$product->prix}}.00 DH</strong> 
+                  </span>
                 
                 </div>
                 <div class="wrapper-new2">
-                <a href="{{route('produit.delete',['id'=>$product->id])}}" class="btn btn-primary btn-block col-md-6">Delete</a> 
-                <a href="{{route('produit.edit',['id'=>$product->id])}}" class="btn btn-primary btn-dark">Modify</a>
+                <a href="{{route('produit.delete',['id'=>$product->id])}}" class="btn btn-dark btn-block col-md-6" style="background-color:#f35757">Delete</a> 
+                <a href="{{route('produit.edit',['id'=>$product->id])}}" class="btn btn-primary btn-dark" style="background-color:#000000;color:#ffff">Modify</a>
               </div>
               </div> 
             </div>

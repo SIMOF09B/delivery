@@ -80,9 +80,9 @@
   
           </div><br>
           <div class="mb-3">
-            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link">Nouveau Mot de pass
+            <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Nouveau Mot de pass
               </a>
-        </div>
+        </div> @include('backoffice.auth.edit')
           </div>
         </div>
 

@@ -8,8 +8,9 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\categorieController;
 use App\Http\Controllers\CommandeController;
-
 // Admin Controllers
+
+
 use App\Http\Controllers\Backoffice\DashboardController;
 use App\Http\Controllers\Backoffice\filter_controller;
 use App\Http\Controllers\visitors\produit_vController;
@@ -39,6 +40,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/update/{id}', [RestaurantController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete');
             Route::get('show/{id}', [RestaurantController::class, 'show'])->name('show');
+            Route::post('filterRest', [filter_Controller::class, 'filterRest'])->name('filterRest');
         });
 
         // categories routes
@@ -73,8 +75,10 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [CommandeController::class, 'index'])->name('index');
             Route::get('/delete/{id}', [CommandeController::class, 'destroy'])->name('delete');
             Route::get('show/{id}', [CommandeController::class, 'show'])->name('show');
-            Route::get('etat/{commande}', [CommandeController::class, 'update_etat'])->name('etat'); 
-            Route::post('filtrage', [filter_controller::class, 'filter'])->name('filter');
+            Route::get('etat/{commande}', [CommandeController::class, 'update_etat'])->name('etat');
+            Route::post('filtrage', [filter_Controller::class, 'filter'])->name('filter');
+            Route::post('filtragecust', [filter_Controller::class, 'filterClient'])->name('filterClient');
+            Route::get('/filtrage', [CommandeController::class, 'index']);
         });
 
         Route::prefix('auth')->name('auth.')->group(function () {
@@ -97,21 +101,24 @@ Route::middleware('auth')->group(function () {
         Route::get('/update', [Client_vController::class, 'update'])->name('update');
         Route::post('edit', [Client_vController::class, 'edit'])->name('edit');
         Route::get('orders', [Client_vController::class, 'order'])->name('order');
-        
     });
 
     Route::get('/commande/{id}', [commande_vController::class, 'store'])->name('c_insert');
 });
 
 
-    // produitsCard routes 
-    Route::prefix('Restaurant')->name('produitC.')->group(function () {
-        Route::get('/{restaurant}/menu', [produit_vController::class, 'index'])->name('show');
-    });
-    Route::get('/Restaurant', [restaurant_vController::class, 'index'])->name('home');
-    Route::get('/add_to_card/{produit}', [produit_vController::class,'AddToCart'])->name('AddToCart'); 
-    Route::get('/delete_card', [produit_vController::class,'destroy'])->name('deleteCard');
-    Route::get('/Restaurant/{restaurant}/Review', [restaurant_vController::class,'show'])->name('rest.show');
+// produitsCard routes 
+Route::prefix('Restaurant')->name('produitC.')->group(function () {
+    Route::get('/{restaurant}/menu', [produit_vController::class, 'index'])->name('show');
+});
+Route::get('/', [restaurant_vController::class, 'index'])->name('home');
+Route::get('/add_to_card/{produit}', [produit_vController::class, 'AddToCart'])->name('AddToCart');
+Route::get('/delete_card', [produit_vController::class, 'destroy'])->name('deleteCard');
+Route::get('/Restaurant/{restaurant}/Review', [restaurant_vController::class, 'show'])->name('rest.show');
+Route::post('filterRest', [restaurant_vController::class, 'filterRest'])->name('filterRest');
+
 //end visitors routes
 Auth::routes();
-Route::get('/', function(){return view('welcome');});
+Route::get('/home', function () {
+    return view('welcome');
+});
